@@ -6,6 +6,9 @@
   "repository": "git@github.com:Pranav016/Social-Media-Website.git",
   "author": "Pranav <pranavmendi@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
   "dependencies": {
     "express": "^4.17.1"
   }
