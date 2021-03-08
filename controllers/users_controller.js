@@ -1,3 +1,6 @@
+// importing models
+const User = require("../models/user");
+
 // render profile page
 module.exports.profile = (req, res) => {
   return res.end("<h1>User Profile</h1>");
@@ -23,7 +26,30 @@ module.exports.signIn = (req, res) => {
 };
 
 // get sign-up data
-moduel.exports.create = (req, res) => {};
+module.exports.create = (req, res) => {
+  if (req.body.password != req.body.confirm_password) {
+    return res.redirect("back");
+  }
+
+  User.findOne({ email: req.body.email }, (err, user) => {
+    if (err) {
+      console.log(`Error in sign-up controller: ${err}`);
+      return;
+    }
+    if (!user) {
+      User.create(req.body, (err, user) => {
+        if (err) {
+          console.log(`Error in sign-up controller: ${err}`);
+          return res.redirect("back");
+        } else {
+          return res.redirect("/users/sign-in");
+        }
+      });
+    }
+  });
+};
 
 // sign-in and create session for the user
-moduel.exports.signIn = (req, res) => {};
+module.exports.createSession = (req, res) => {
+  return res.end("<h1>Welcome</h1>");
+};
