@@ -11,7 +11,7 @@ const homeRoute = require("./routes"); //by default requires index file
 app.use(express.urlencoded({ extended: true }));
 /*This method is inbuilt in express to recognize
 the incoming Request Object as strings or arrays*/
-app.use(express.static("./assets"));
+app.use(express.static("public"));
 app.use(cookieParser());
 
 app.use("/", homeRoute);
