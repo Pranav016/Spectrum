@@ -3,22 +3,41 @@ const cookieParser = require("cookie-parser");
 const app = express();
 const port = 8000;
 const db = require("./config/mongoose");
-
-// routes
-const homeRoute = require("./routes"); //by default requires index file
+// used for session cookie
+const passport = require("passport");
+const passportLocal = require("./config/passport-local-strategy");
+const session = require("express-session");
 
 // setting up middlewares
 app.use(express.urlencoded({ extended: true }));
 /*This method is inbuilt in express to recognize
 the incoming Request Object as strings or arrays*/
 app.use(express.static("public"));
-app.use(cookieParser());
-
-app.use("/", homeRoute);
 
 // setup view engine
 app.set("view engine", "ejs");
 app.set("views", "./views");
+
+// cookies and session creation
+app.use(cookieParser());
+app.use(
+  session({
+    name: "SocialMedia",
+    secret: "Social-Media",
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+      maxAge: 1000 * 60 * 100,
+    },
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
+// routes
+const homeRoute = require("./routes"); //by default requires index file
+
+app.use("/", homeRoute);
 
 // starting the server
 app.listen(port, function (err) {

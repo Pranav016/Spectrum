@@ -6,7 +6,7 @@ const User = require("../models/user");
 passport.use(
   new LocalStrategy(
     {
-      usernameField: email,
+      usernameField: "email",
       /*By default, LocalStrategy expects to find credentials in parameters named 'username' and 'password'.So we use 'usernameField' which is a prededfined parameter to change our unique credential*/
     },
     (email, password, done) => {
