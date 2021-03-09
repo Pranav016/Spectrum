@@ -45,6 +45,8 @@ module.exports.create = (req, res) => {
           return res.redirect("/users/sign-in");
         }
       });
+    } else {
+      return res.redirect("back");
     }
   });
 };
