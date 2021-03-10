@@ -9,8 +9,7 @@ const passport = require("passport");
 const passportLocal = require("./config/passport-local-strategy");
 const session = require("express-session");
 // helps store session cookie data in Mongo DB
-var MongoStore = require("connect-mongo")(session);
-// console.log(MongoStore.default);
+var MongoStore = require("connect-mongo").default;
 
 // setting up middlewares
 app.use(express.urlencoded({ extended: true }));
@@ -24,40 +23,25 @@ app.set("views", "./views");
 
 // cookies and session creation
 app.use(cookieParser());
-// app.use(
-//   session({
-//     name: "SocialMedia",
-//     secret: "Social-Media",
-//     saveUninitialized: false,
-//     resave: false,
-//     cookie: {
-//       maxAge: 1000 * 60 * 100,
-//     },
-//     // MongoStore helps store the session cookie data in the db
-//     store: MongoStore.create(
-//       {
-//         mongoUrl: "mongodb://localhost:27017/socialMedia",
-//         autoRemove: "disabled",
-//       },
-//       (err) => {
-//         console.log(err || "session cookie data stored successfully");
-//       }
-//     ),
-//   })
-// );
 app.use(
   session({
-    secret: "botnyuserdetails",
-    resave: true,
-    saveUninitialized: true,
-    cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 },
-    store: new MongoStore({
-      mongooseConnection: db,
-      host: "127.0.0.1",
-      port: "27017",
-      collections: "sessions",
-      url: "mongodb://localhost:27017/yourProjectName",
-    }),
+    name: "SocialMedia",
+    secret: "Social-Media",
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+      maxAge: 1000 * 60 * 100,
+    },
+    // MongoStore helps store the session cookie data in the db
+    store: MongoStore.create(
+      {
+        mongoUrl: "mongodb://localhost:27017/socialMedia",
+        autoRemove: "disabled",
+      },
+      (err) => {
+        console.log(err || "session cookie data stored successfully");
+      }
+    ),
   })
 );
 app.use(passport.initialize());
