@@ -33,6 +33,8 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+// checks cookie for authentication and transfers the user info from req object to locals for view
+app.use(passport.setAuthenticatedUser);
 
 // routes
 const homeRoute = require("./routes"); //by default requires index file
