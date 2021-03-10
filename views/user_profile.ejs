@@ -1,0 +1,15 @@
+<%- include("partials/header") -%>
+
+    <h1>
+        <%= title %>
+    </h1>
+
+    <h2>
+        <!-- We are able to access user here since we set res.locals to req.user in users_controller -->
+        <%= user.name %>
+    </h2>
+    <h2>
+        <%= user.email %>
+    </h2>
+
+    <%- include("partials/footer") -%>
