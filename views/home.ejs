@@ -4,11 +4,26 @@
         <%= title %>
     </h1>
 
-    <section>
-        <form action="/posts/create" method="POST">
-            <textarea name="content" cols="30" placeholder="Type here"></textarea>
-            <button type="submit">Post</button>
-        </form>
-    </section>
+    <% if(locals.user) { %>
+        <section>
+            <form action="/posts/create" method="POST">
+                <textarea name="content" cols="30" placeholder="Type here"></textarea>
+                <button type="submit">Post</button>
+            </form>
+        </section>
+        <% if(posts) { %>
+            <section>
+                <% for(post of posts) { %>
+                    <div class="container">
+                        <p>
+                            <%= post.content %>
+                        </p>
+                        <small>
+                            <%= post.user.name %>
+                        </small>
+                    </div>
+                    <% } %>
+            </section>
+            <% } } %>
 
-    <%- include("partials/footer") -%>
+                <%- include("partials/footer") -%>
