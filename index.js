@@ -10,8 +10,20 @@ const passportLocal = require("./config/passport-local-strategy");
 const session = require("express-session");
 // helps store session cookie data in Mongo DB
 var MongoStore = require("connect-mongo").default;
+const sassMiddleware = require("node-sass-middleware");
 
 // setting up middlewares
+app.use(
+  sassMiddleware({
+    src: "./public/scss",
+    dest: "./public/css",
+    debug: true, //set this to false during production
+    outputStyle: "extended", // set it to "compressed" during production
+    prefix:
+      "/css" /* It will tell the sass middleware that any request file
+    will always be prefixed with "/css" and this prefix should be ignored. */,
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 /*This method is inbuilt in express to recognize
 the incoming Request Object as strings or arrays*/

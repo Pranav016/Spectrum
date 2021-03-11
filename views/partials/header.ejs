@@ -16,6 +16,9 @@
 <header>
     <ul>
         <% if (locals.user) { %>
+            <!-- we did not use only `user` in the if block because user may
+                or may not have a definite value but locals.user will always
+                have a value whether it be the user's data or a null value -->
             <li>
                 <a href="/users/profile">
                     <%= user.name %>
