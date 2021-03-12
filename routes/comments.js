@@ -6,6 +6,6 @@ const router = express.Router();
 const commentsController = require("../controllers/comments_controller");
 
 // routes
-router.post("/create", commentsController.create);
+router.post("/create", passport.checkAuthentication, commentsController.create);
 
 module.exports = router;

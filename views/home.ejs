@@ -7,23 +7,41 @@
     <% if(locals.user) { %>
         <section>
             <form action="/posts/create" method="POST">
-                <textarea name="content" cols="30" placeholder="Type here"></textarea>
+                <textarea name="content" cols="30" placeholder="Type here" required></textarea>
                 <button type="submit">Post</button>
             </form>
         </section>
         <% if(posts) { %>
             <section>
                 <% for(post of posts) { %>
-                    <div class="container">
-                        <p>
-                            <%= post.content %>
-                        </p>
-                        <small>
-                            <%= post.user.name %>
-                        </small>
+                    <div id="post" class="container">
+                        <div class="container">
+                            <h2>
+                                <%= post.content %>
+                            </h2>
+                            <small>
+                                <%= post.user.name %>
+                            </small>
+                        </div>
+                        <div class="container">
+                            <% for(comment of post.comments) { %>
+                                <p>
+                                    <%= comment.content %>
+                                </p>
+                                <small>
+                                    <%= comment.user.name %>
+                                </small>
+                        </div>
+                        <% } %>
+                            <div class="container">
+                                <form action="/comments/create" method="POST">
+                                    <input type="text" name="content" placeholder="Your comment here" required>
+                                    <input type="hidden" name="postId" value="<%= post._id %>">
+                                    <button type="submit">Comment</button>
+                                </form>
+                            </div>
                     </div>
-                    <% } %>
             </section>
-            <% } } %>
+            <% } } }%>
 
                 <%- include("partials/footer") -%>
