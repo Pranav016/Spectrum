@@ -27,7 +27,7 @@ module.exports.destroy = (req, res) => {
 			Comment.deleteMany({ post: req.params.id }, (err) => {
 				if (err) {
 					console.log(
-						`Error in deleting comments of post id: ${req.params.id}`
+						`Error in deleting comments of post id ${req.params.id}: ${err}`
 					);
 				}
 			});
