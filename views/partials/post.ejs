@@ -1,0 +1,21 @@
+<% if(posts) { %>
+    <% for(post of posts) { %>
+        <div id="post" class="container">
+            <div class="container">
+                <h2>
+                    <%= post.content %>
+                </h2>
+                <small>
+                    <%= post.user.name %>
+                </small>
+                <% if (locals.user.id==post.user.id) { %>
+                    <a href="/posts/destroy/<%= post.id %>">
+                        <button type="submit">Delete Post</button>
+                    </a>
+                    <% } %>
+            </div>
+
+            <%- include("./comment_section") -%>
+
+        </div>
+        <% } }%>
