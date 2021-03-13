@@ -22,6 +22,11 @@
                             <small>
                                 <%= post.user.name %>
                             </small>
+                            <% if (locals.user.id==post.user.id) { %>
+                                <a href="/posts/destroy/<%= post.id %>">
+                                    <button type="submit">Delete Post</button>
+                                </a>
+                                <% } %>
                         </div>
                         <div class="container">
                             <% for(comment of post.comments) { %>
