@@ -65,6 +65,20 @@ module.exports.create = (req, res) => {
 	});
 };
 
+// updating profile info
+module.exports.update = (req, res) => {
+	/* we check here to confirm that any other person is
+	not just putting another id and is able to update their info,
+	person making the request can only update his profile info */
+	if (req.user.id == req.params.id) {
+		User.findByIdAndUpdate(req.params.id, req.body, (err, user) => {
+			return res.redirect("back");
+		});
+	} else {
+		return res.status(401).send("Unauthorized access");
+	}
+};
+
 // sign-in and create session for the user
 module.exports.createSession = (req, res) => {
 	return res.redirect("/");

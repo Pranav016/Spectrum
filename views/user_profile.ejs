@@ -4,12 +4,24 @@
         <%= title %>
     </h1>
 
-    <h2>
-        <!-- We are able to access user here since we set res.locals to req.user in users_controller -->
-        <%= profile_user.name %>
-    </h2>
-    <h2>
-        <%= profile_user.email %>
-    </h2>
+    <% if (user.id==profile_user.id) { %>
 
-    <%- include("partials/footer") -%>
+        <form action="/users/update/<%= profile_user.id %>" method="POST">
+            <input type="text" name="name" placeholder="Enter Name" required>
+            <input type="text" name="email" placeholder="Enter Email" required>
+            <button type="submit">Update</button>
+        </form>
+
+        <% } else { %>
+
+            <h2>
+                <!-- We are able to access user here since we set res.locals to req.user in users_controller -->
+                <%= profile_user.name %>
+            </h2>
+            <h2>
+                <%= profile_user.email %>
+            </h2>
+
+            <% } %>
+
+                <%- include("partials/footer") -%>
