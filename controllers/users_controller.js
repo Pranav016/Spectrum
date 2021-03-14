@@ -40,29 +40,20 @@ module.exports.signIn = (req, res) => {
 };
 
 // get sign-up data
-module.exports.create = (req, res) => {
-	if (req.body.password != req.body.confirm_password) {
-		return res.redirect("back");
-	}
-
-	User.findOne({ email: req.body.email }, (err, user) => {
-		if (err) {
-			console.log(`Error in sign-up controller: ${err}`);
-			return;
-		}
-		if (!user) {
-			User.create(req.body, (err, user) => {
-				if (err) {
-					console.log(`Error in sign-up controller: ${err}`);
-					return res.redirect("back");
-				} else {
-					return res.redirect("/users/sign-in");
-				}
-			});
-		} else {
+module.exports.create = async (req, res) => {
+	try {
+		if (req.body.password != req.body.confirm_password) {
 			return res.redirect("back");
 		}
-	});
+		let user = await User.findOne({ email: req.body.email });
+		if (!user) {
+			await User.create(req.body);
+			return res.redirect("/users/sign-in");
+		}
+	} catch (err) {
+		console.log(`Error in sign-up controller: ${err}`);
+		return res.redirect("back");
+	}
 };
 
 // updating profile info
