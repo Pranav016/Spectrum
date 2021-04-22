@@ -1,9 +1,9 @@
 {
-  "name": "SocialMedia",
+  "name": "spectrum",
   "version": "1.0.0",
   "description": "Social Media App",
   "main": "index.js",
-  "repository": "git@github.com:Pranav016/Social-Media-Website.git",
+  "repository": "git@github.com:Pranav016/Spectrum.git",
   "author": "Pranav <pranavmendi@gmail.com>",
   "license": "MIT",
   "scripts": {
